@@ -69,7 +69,11 @@ const observer = new IntersectionObserver((entries) => {
 }, observerOptions);
 
 // Observe elements for animation
-const animateOnScroll = document.querySelectorAll('.project-card, .timeline-item, .contact-card, .skill-item');
+const animateOnScroll = document.querySelectorAll(
+    '.project-card, .timeline-item, .contact-card, .skill-category, ' +
+    '.award-item, .leadership-card, .certifications'
+);
+
 animateOnScroll.forEach(el => {
     el.style.opacity = '0';
     el.style.transform = 'translateY(30px)';
@@ -155,5 +159,117 @@ function debounce(func, wait) {
 const debouncedHighlight = debounce(highlightNavigation, 10);
 window.addEventListener('scroll', debouncedHighlight);
 
+// Add hover effect for skill tags
+document.addEventListener('DOMContentLoaded', () => {
+    const skillTags = document.querySelectorAll('.skill-tag');
+    skillTags.forEach(tag => {
+        tag.addEventListener('mouseenter', function() {
+            this.style.transform = 'translateY(-2px) scale(1.05)';
+        });
+        tag.addEventListener('mouseleave', function() {
+            this.style.transform = 'translateY(0) scale(1)';
+        });
+    });
+});
+
+// Animate timeline items on scroll
+const timelineObserver = new IntersectionObserver((entries) => {
+    entries.forEach((entry, index) => {
+        if (entry.isIntersecting) {
+            setTimeout(() => {
+                entry.target.style.opacity = '1';
+                entry.target.style.transform = 'translateX(0)';
+            }, index * 100);
+        }
+    });
+}, {
+    threshold: 0.2
+});
+
+document.querySelectorAll('.timeline-item').forEach(item => {
+    item.style.opacity = '0';
+    item.style.transform = 'translateX(-30px)';
+    item.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+    timelineObserver.observe(item);
+});
+
+// Counter animation for awards
+function animateCounter(element, target, duration) {
+    let start = 0;
+    const increment = target / (duration / 16);
+    
+    const timer = setInterval(() => {
+        start += increment;
+        if (start >= target) {
+            element.textContent = target;
+            clearInterval(timer);
+        } else {
+            element.textContent = Math.floor(start);
+        }
+    }, 16);
+}
+
+// Add subtle parallax effect to hero section
+window.addEventListener('scroll', () => {
+    const scrolled = window.pageYOffset;
+    const hero = document.querySelector('.hero-content');
+    if (hero && scrolled < window.innerHeight) {
+        hero.style.transform = `translateY(${scrolled * 0.3}px)`;
+        hero.style.opacity = 1 - (scrolled / 600);
+    }
+});
+
 // Log page load for analytics (placeholder)
-console.log('Portfolio loaded successfully');
+console.log('Portfolio loaded successfully - Arjun Sharma Poudel');
+
+// Add loading animation
+window.addEventListener('load', () => {
+    document.body.classList.add('loaded');
+    console.log('All resources loaded');
+});
+
+// Smooth reveal for project cards
+const projectObserver = new IntersectionObserver((entries) => {
+    entries.forEach((entry, index) => {
+        if (entry.isIntersecting) {
+            setTimeout(() => {
+                entry.target.style.opacity = '1';
+                entry.target.style.transform = 'translateY(0)';
+            }, index * 150);
+        }
+    });
+}, {
+    threshold: 0.1,
+    rootMargin: '0px 0px -50px 0px'
+});
+
+document.querySelectorAll('.project-card').forEach(card => {
+    projectObserver.observe(card);
+});
+
+// Add click tracking for external links (optional - for analytics)
+document.querySelectorAll('a[target="_blank"]').forEach(link => {
+    link.addEventListener('click', function() {
+        console.log('External link clicked:', this.href);
+    });
+});
+
+// Enhance accessibility - announce page changes
+function announcePageSection(sectionName) {
+    const announcement = document.createElement('div');
+    announcement.setAttribute('role', 'status');
+    announcement.setAttribute('aria-live', 'polite');
+    announcement.style.position = 'absolute';
+    announcement.style.left = '-10000px';
+    announcement.textContent = `Navigated to ${sectionName} section`;
+    document.body.appendChild(announcement);
+    setTimeout(() => announcement.remove(), 1000);
+}
+
+navLinks.forEach(link => {
+    link.addEventListener('click', function() {
+        const sectionId = this.getAttribute('href').substring(1);
+        const sectionName = sectionId.charAt(0).toUpperCase() + sectionId.slice(1);
+        announcePageSection(sectionName);
+    });
+});
