@@ -1,449 +1,322 @@
-<!-- ===================================
-   ARJUN SHARMA POUDEL - PORTFOLIO HTML
-   Save this file as: index.html
-   =================================== -->
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Arjun Sharma Poudel - Nanoengineering Graduate Student & Software Engineer specializing in computational research, machine learning, and nanotechnology">
-    <meta name="keywords" content="Arjun Sharma Poudel, Nanoengineering, Software Engineer, Machine Learning, COMSOL, Python, Research">
-    <title>Arjun Sharma Poudel - Portfolio</title>
-    <link rel="stylesheet" href="css/style.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <meta name="description" content="Arjun Sharma Poudel - Nanoengineering Graduate Student & Software Engineer">
+    <title>Arjun Sharma Poudel | Portfolio</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
     <!-- Navigation -->
-    <nav class="nav" id="nav">
-        <div class="nav-container">
-            <a href="#home" class="nav-logo">ASP</a>
+    <nav class="navbar" id="navbar">
+        <div class="container nav-container">
+            <a href="#home" class="logo">ASP</a>
             <button class="nav-toggle" id="navToggle" aria-label="Toggle navigation">
                 <span></span>
                 <span></span>
                 <span></span>
             </button>
             <ul class="nav-menu" id="navMenu">
-                <li><a href="#home" class="nav-link">Home</a></li>
+                <li><a href="#home" class="nav-link active">Home</a></li>
                 <li><a href="#about" class="nav-link">About</a></li>
-                <li><a href="#experience" class="nav-link">Experience</a></li>
                 <li><a href="#skills" class="nav-link">Skills</a></li>
-                <li><a href="#research" class="nav-link">Research</a></li>
+                <li><a href="#projects" class="nav-link">Projects</a></li>
+                <li><a href="#experience" class="nav-link">Experience</a></li>
+                <li><a href="#education" class="nav-link">Education</a></li>
                 <li><a href="#contact" class="nav-link">Contact</a></li>
             </ul>
+            <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">
+                <svg class="sun-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <circle cx="12" cy="12" r="5"></circle>
+                    <line x1="12" y1="1" x2="12" y2="3"></line>
+                    <line x1="12" y1="21" x2="12" y2="23"></line>
+                    <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                    <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                    <line x1="1" y1="12" x2="3" y2="12"></line>
+                    <line x1="21" y1="12" x2="23" y2="12"></line>
+                    <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                    <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                </svg>
+                <svg class="moon-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                </svg>
+            </button>
         </div>
     </nav>
 
     <!-- Hero Section -->
     <section class="hero" id="home">
-        <div class="hero-container">
+        <div class="container">
             <div class="hero-content">
-                <p class="hero-greeting">Hello, I'm</p>
-                <h1 class="hero-title">Arjun Sharma Poudel</h1>
+                <h1 class="hero-title">Hi, I'm <span class="highlight">Arjun Sharma Poudel</span></h1>
                 <p class="hero-subtitle">Nanoengineering Graduate Student & Software Engineer</p>
-                <p class="hero-description">Bridging Nanotechnology & Computational Research</p>
-                <p class="hero-location">
-                    <i class="fas fa-map-marker-alt"></i> Greensboro, North Carolina, USA
-                </p>
-                <div class="hero-cta">
-                    <a href="#contact" class="btn btn-primary">Get In Touch</a>
-                    <a href="#research" class="btn btn-secondary">View Research</a>
-                </div>
-                <div class="hero-social">
-                    <a href="https://www.linkedin.com/in/arjunsharmapoudel/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">
-                        <i class="fab fa-linkedin"></i>
-                    </a>
-                    <a href="https://www.researchgate.net/profile/Arjun-Poudel-5" target="_blank" rel="noopener noreferrer" aria-label="ResearchGate">
-                        <i class="fab fa-researchgate"></i>
-                    </a>
-                    <a href="mailto:aspoudel@aggies.ncat.edu" aria-label="Email">
-                        <i class="fas fa-envelope"></i>
-                    </a>
+                <p class="hero-description">Passionate about connecting nanotechnology and computational approaches to create real impact through research and development.</p>
+                <div class="hero-buttons">
+                    <a href="#projects" class="btn btn-primary">View Projects</a>
+                    <a href="./resume.pdf" class="btn btn-secondary" download>Download Resume</a>
                 </div>
             </div>
-        </div>
-        <div class="hero-scroll">
-            <a href="#about" aria-label="Scroll to about section">
-                <i class="fas fa-chevron-down"></i>
-            </a>
         </div>
     </section>
 
     <!-- About Section -->
-    <section class="section about" id="about">
+    <section class="section" id="about">
         <div class="container">
             <h2 class="section-title">About Me</h2>
             <div class="about-content">
-                <div class="about-text">
-                    <p>I am pursuing a Master's in Nanoengineering at North Carolina A&T State University, with a strong foundation in computer science and a growing passion for physics and computational research. As a Graduate Research Assistant at the Joint School of Nanoscience and Nanoengineering (JSNN), I work at the intersection of nanotechnology and computational approaches.</p>
-                    <p>With several years of hands-on experience as a software engineer and entrepreneur, I bring a unique perspective to research. I founded Cdevi Technology in Nepal and served as CTO at Technology Spot, combining technical leadership with innovative problem-solving. I'm eager to collaborate with universities, institutions, and companies on projects that create real impact through the fusion of nanotechnology and computation.</p>
-                    <p>Beyond research and development, I have experience as a lecturer at two institutions in Nepal, where I shared my knowledge and mentored the next generation of technologists. My diverse background spans leadership roles in community service organizations and academic excellence recognized through multiple scholarships and awards.</p>
+                <p>I am pursuing a master's in nanoengineering at North Carolina A&T State University, with a strong foundation in computer science and a growing interest in physics and computational research. As a passionate software engineer with several years of hands-on experience in software development and problem-solving, I am eager to collaborate with universities, institutions, and companies on projects that connect nanotechnology and computational approaches.</p>
+                <p>I bring leadership experience as the founder of a company in Nepal, teaching experience at multiple colleges, and my current role as a graduate research assistant at JSNN. With strong proficiency in multiple programming languages and growing expertise in nanotechnology research, I am committed to contributing, learning, and creating meaningful impact in the field.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Skills Section -->
+    <section class="section section-alt" id="skills">
+        <div class="container">
+            <h2 class="section-title">Skills & Expertise</h2>
+            <div class="skills-grid">
+                <div class="skill-category">
+                    <h3 class="skill-category-title">Software Development</h3>
+                    <div class="skill-pills">
+                        <span class="skill-pill">Python</span>
+                        <span class="skill-pill">PHP</span>
+                        <span class="skill-pill">JavaScript</span>
+                        <span class="skill-pill">Software Development</span>
+                        <span class="skill-pill">Version Control</span>
+                        <span class="skill-pill">Linux</span>
+                        <span class="skill-pill">Databases</span>
+                    </div>
+                </div>
+                <div class="skill-category">
+                    <h3 class="skill-category-title">Data Science & AI</h3>
+                    <div class="skill-pills">
+                        <span class="skill-pill">Machine Learning</span>
+                        <span class="skill-pill">Data Analysis</span>
+                        <span class="skill-pill">Data Visualization</span>
+                        <span class="skill-pill">Mathematics & Statistics</span>
+                        <span class="skill-pill">Automation & Scripting</span>
+                    </div>
+                </div>
+                <div class="skill-category">
+                    <h3 class="skill-category-title">Nanotechnology</h3>
+                    <div class="skill-pills">
+                        <span class="skill-pill">COMSOL</span>
+                        <span class="skill-pill">MATLAB</span>
+                        <span class="skill-pill">Photoluminescence (PL)</span>
+                        <span class="skill-pill">Semiconductor Materials</span>
+                        <span class="skill-pill">Nanostructure Growth</span>
+                        <span class="skill-pill">MBE</span>
+                    </div>
+                </div>
+                <div class="skill-category">
+                    <h3 class="skill-category-title">Research & Communication</h3>
+                    <div class="skill-pills">
+                        <span class="skill-pill">Scientific Writing</span>
+                        <span class="skill-pill">Presentation</span>
+                        <span class="skill-pill">Collaboration</span>
+                        <span class="skill-pill">Teaching & Mentoring</span>
+                        <span class="skill-pill">Project Management</span>
+                        <span class="skill-pill">Experimental Design</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Projects & Research Section -->
+    <section class="section" id="projects">
+        <div class="container">
+            <h2 class="section-title">Projects & Research</h2>
+            <div class="projects-grid">
+                <div class="project-card">
+                    <div class="project-header">
+                        <h3 class="project-title">AI in Online Education Research</h3>
+                        <span class="project-status">Under Review</span>
+                    </div>
+                    <p class="project-description">Research paper examining the effect of Artificial Intelligence on the interaction between learners and instructors in online education environments.</p>
+                    <div class="project-tags">
+                        <span class="tag">AI</span>
+                        <span class="tag">Education</span>
+                        <span class="tag">Research</span>
+                    </div>
+                </div>
+                <div class="project-card">
+                    <div class="project-header">
+                        <h3 class="project-title">Education Hub and Training Pathway</h3>
+                    </div>
+                    <p class="project-description">A comprehensive e-learning platform designed for institutional use with commercial applications. Complete package including training pathways and educational resources.</p>
+                    <div class="project-tags">
+                        <span class="tag">E-Learning</span>
+                        <span class="tag">PHP</span>
+                        <span class="tag">Full Stack</span>
+                    </div>
+                </div>
+                <div class="project-card">
+                    <div class="project-header">
+                        <h3 class="project-title">AI Computational Biotechnology Hackathon</h3>
+                        <span class="project-status award">3rd Place</span>
+                    </div>
+                    <p class="project-description">Secured third place in AI-focused computational biotechnology hackathon at Olivera Lab, demonstrating proficiency in applying AI techniques to biotechnology challenges.</p>
+                    <div class="project-tags">
+                        <span class="tag">AI</span>
+                        <span class="tag">Biotechnology</span>
+                        <span class="tag">Python</span>
+                    </div>
                 </div>
             </div>
         </div>
     </section>
 
     <!-- Experience Section -->
-    <section class="section experience" id="experience">
+    <section class="section section-alt" id="experience">
         <div class="container">
-            <h2 class="section-title">Experience & Education</h2>
+            <h2 class="section-title">Experience</h2>
             <div class="timeline">
                 <div class="timeline-item">
                     <div class="timeline-marker"></div>
                     <div class="timeline-content">
-                        <h3>Graduate Research Assistant</h3>
-                        <p class="timeline-meta">JSNN - Joint School of Nanoscience and Nanoengineering | 2025 - Present</p>
-                        <p>Conducting cutting-edge research in nanoengineering, focusing on computational approaches to nanotechnology. Working with advanced tools including COMSOL, MATLAB, and semiconductor materials characterization techniques.</p>
+                        <h3 class="timeline-title">Graduate Research Assistant</h3>
+                        <p class="timeline-organization">JSNN, North Carolina A&T State University</p>
+                        <p class="timeline-date">2025 - Present</p>
+                        <p class="timeline-description">Conducting research in nanoengineering with focus on computational approaches and nanotechnology applications.</p>
                     </div>
                 </div>
                 <div class="timeline-item">
                     <div class="timeline-marker"></div>
                     <div class="timeline-content">
-                        <h3>Master of Science in Nanoengineering</h3>
-                        <p class="timeline-meta">North Carolina A&T State University | 2025 - Present</p>
-                        <p>Specializing in nanostructure growth, semiconductor materials, and computational modeling. Active member of the Materials Research Society at JSNN.</p>
+                        <h3 class="timeline-title">Chief Technology Officer</h3>
+                        <p class="timeline-organization">Technology Spot</p>
+                        <p class="timeline-date">2024 - 2025</p>
+                        <p class="timeline-description">Led technology strategy and development initiatives, overseeing technical operations and innovation.</p>
                     </div>
                 </div>
                 <div class="timeline-item">
                     <div class="timeline-marker"></div>
                     <div class="timeline-content">
-                        <h3>Chief Technology Officer</h3>
-                        <p class="timeline-meta">Technology Spot | 2024 - 2025</p>
-                        <p>Led technology strategy and development initiatives, overseeing software engineering teams and implementing innovative solutions for business challenges.</p>
+                        <h3 class="timeline-title">Lecturer</h3>
+                        <p class="timeline-organization">Swastik College & Swoyambhu International College</p>
+                        <p class="timeline-date">2023 - 2024</p>
+                        <p class="timeline-description">Taught computer science and software engineering courses, mentoring students in programming and software development.</p>
                     </div>
                 </div>
                 <div class="timeline-item">
                     <div class="timeline-marker"></div>
                     <div class="timeline-content">
-                        <h3>Lecturer</h3>
-                        <p class="timeline-meta">Swastik College & Swoyambhu International College | 2023 - 2024</p>
-                        <p>Taught computer science and software engineering courses, mentoring students in programming, software development, and emerging technologies.</p>
+                        <h3 class="timeline-title">Software Engineer</h3>
+                        <p class="timeline-organization">Thulo Inc</p>
+                        <p class="timeline-date">2023</p>
+                        <p class="timeline-description">Developed software solutions and contributed to various development projects.</p>
                     </div>
                 </div>
                 <div class="timeline-item">
                     <div class="timeline-marker"></div>
                     <div class="timeline-content">
-                        <h3>Software Engineer</h3>
-                        <p class="timeline-meta">Thulo Inc | 2023</p>
-                        <p>Developed and maintained software applications, working with modern frameworks and contributing to large-scale projects.</p>
+                        <h3 class="timeline-title">Intern and Developer</h3>
+                        <p class="timeline-organization">IET Technology</p>
+                        <p class="timeline-date">2021 - 2022</p>
+                        <p class="timeline-description">Gained hands-on experience in software development and contributed to real-world projects.</p>
                     </div>
                 </div>
                 <div class="timeline-item">
                     <div class="timeline-marker"></div>
                     <div class="timeline-content">
-                        <h3>Intern & Developer</h3>
-                        <p class="timeline-meta">IET Technology | 2021 - 2022</p>
-                        <p>Gained practical experience in software development, working on real-world projects and learning industry best practices.</p>
-                    </div>
-                </div>
-                <div class="timeline-item">
-                    <div class="timeline-marker"></div>
-                    <div class="timeline-content">
-                        <h3>Founder</h3>
-                        <p class="timeline-meta">Cdevi Technology | 2020 - Present</p>
-                        <p>Founded and led a technology company in Nepal, providing software solutions and digital services to clients across various industries.</p>
-                    </div>
-                </div>
-                <div class="timeline-item">
-                    <div class="timeline-marker"></div>
-                    <div class="timeline-content">
-                        <h3>Bachelor of Software Engineering</h3>
-                        <p class="timeline-meta">Nepal College of Information Technology, Pokhara University | 2017 - 2022</p>
-                        <p>Completed comprehensive software engineering program with a College Scholarship. Developed "Education Hub and Training Pathway" - a complete e-learning platform for commercial use.</p>
+                        <h3 class="timeline-title">Founder</h3>
+                        <p class="timeline-organization">Cdevi Technology</p>
+                        <p class="timeline-date">2020</p>
+                        <p class="timeline-description">Founded and led a technology company in Nepal, managing operations and driving business growth.</p>
                     </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Skills Section -->
-    <section class="section skills" id="skills">
+    <!-- Education Section -->
+    <section class="section" id="education">
         <div class="container">
-            <h2 class="section-title">Technical Skills</h2>
-            <div class="skills-container">
-                <div class="skill-category">
-                    <h3><i class="fas fa-code"></i> Software Development</h3>
-                    <div class="skill-tags">
-                        <span class="skill-tag">Python</span>
-                        <span class="skill-tag">PHP</span>
-                        <span class="skill-tag">JavaScript</span>
-                        <span class="skill-tag">Laravel</span>
-                        <span class="skill-tag">Version Control</span>
-                        <span class="skill-tag">Linux</span>
-                        <span class="skill-tag">Databases</span>
-                    </div>
+            <h2 class="section-title">Education</h2>
+            <div class="education-grid">
+                <div class="education-card">
+                    <div class="education-icon">🎓</div>
+                    <h3 class="education-degree">Master of Science in Nanoengineering</h3>
+                    <p class="education-institution">North Carolina A&T State University</p>
+                    <p class="education-location">Greensboro, North Carolina, USA</p>
+                    <p class="education-date">2025 - Present</p>
                 </div>
-                <div class="skill-category">
-                    <h3><i class="fas fa-brain"></i> Data Science & AI</h3>
-                    <div class="skill-tags">
-                        <span class="skill-tag">Machine Learning</span>
-                        <span class="skill-tag">Data Analysis</span>
-                        <span class="skill-tag">Data Visualization</span>
-                        <span class="skill-tag">Mathematics & Statistics</span>
-                        <span class="skill-tag">Automation & Scripting</span>
-                    </div>
+                <div class="education-card">
+                    <div class="education-icon">🎓</div>
+                    <h3 class="education-degree">Bachelor of Software Engineering</h3>
+                    <p class="education-institution">Nepal College of Information Technology, Pokhara University</p>
+                    <p class="education-location">Pokhara, Nepal</p>
+                    <p class="education-date">2017 - 2022</p>
                 </div>
-                <div class="skill-category">
-                    <h3><i class="fas fa-atom"></i> Nanotechnology</h3>
-                    <div class="skill-tags">
-                        <span class="skill-tag">COMSOL</span>
-                        <span class="skill-tag">MATLAB</span>
-                        <span class="skill-tag">Photoluminescence (PL)</span>
-                        <span class="skill-tag">Semiconductor Materials</span>
-                        <span class="skill-tag">Nanostructure Growth</span>
-                        <span class="skill-tag">MBE</span>
-                    </div>
-                </div>
-                <div class="skill-category">
-                    <h3><i class="fas fa-flask"></i> Research Skills</h3>
-                    <div class="skill-tags">
-                        <span class="skill-tag">Scientific Writing</span>
-                        <span class="skill-tag">Presentation</span>
-                        <span class="skill-tag">Collaboration</span>
-                        <span class="skill-tag">Teaching/Mentoring</span>
-                        <span class="skill-tag">Project Management</span>
-                        <span class="skill-tag">Experimental Design</span>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Research & Projects Section -->
-    <section class="section research" id="research">
-        <div class="container">
-            <h2 class="section-title">Research & Projects</h2>
-            <div class="projects-grid">
-                <article class="project-card highlight">
-                    <div class="project-header">
-                        <i class="fas fa-trophy"></i>
-                    </div>
-                    <div class="project-content">
-                        <h3>AI-focused Computational Biotechnology Hackathon</h3>
-                        <p class="award-badge">🥉 Third Place Winner</p>
-                        <p>Achieved third place in a competitive AI-focused computational biotechnology hackathon organized by Olivera Lab, USA. Developed innovative solutions combining artificial intelligence with biotechnology applications.</p>
-                        <div class="project-tags">
-                            <span class="tag">AI</span>
-                            <span class="tag">Biotechnology</span>
-                            <span class="tag">Competition</span>
-                            <span class="tag">2025</span>
-                        </div>
-                    </div>
-                </article>
-
-                <article class="project-card">
-                    <div class="project-content">
-                        <h3>The Effect of AI on Online Education</h3>
-                        <p class="status-badge">Under Review</p>
-                        <p>Research paper investigating the impact of Artificial Intelligence on the interaction between learners and instructors in online education platforms. Analyzing behavioral patterns, engagement metrics, and learning outcomes.</p>
-                        <div class="project-tags">
-                            <span class="tag">Research Paper</span>
-                            <span class="tag">AI</span>
-                            <span class="tag">Education</span>
-                            <span class="tag">Under Review</span>
-                        </div>
-                        <a href="https://www.researchgate.net/profile/Arjun-Poudel-5" target="_blank" rel="noopener noreferrer" class="project-link">
-                            View on ResearchGate <i class="fas fa-external-link-alt"></i>
-                        </a>
-                    </div>
-                </article>
-
-                <article class="project-card">
-                    <div class="project-content">
-                        <h3>Education Hub and Training Pathway</h3>
-                        <p>Complete e-learning platform designed for institutional and commercial use. Features comprehensive course management, student tracking, interactive learning modules, and payment integration.</p>
-                        <div class="project-tags">
-                            <span class="tag">E-Learning</span>
-                            <span class="tag">Full Stack</span>
-                            <span class="tag">Commercial</span>
-                            <span class="tag">Academic Project</span>
-                        </div>
-                    </div>
-                </article>
-
-                <article class="project-card">
-                    <div class="project-content">
-                        <h3>Nanoengineering Research at JSNN</h3>
-                        <p>Current graduate research focusing on computational modeling of nanoscale phenomena, semiconductor characterization, and nanostructure growth optimization using advanced simulation tools.</p>
-                        <div class="project-tags">
-                            <span class="tag">Nanoengineering</span>
-                            <span class="tag">COMSOL</span>
-                            <span class="tag">Semiconductors</span>
-                            <span class="tag">Ongoing</span>
-                        </div>
-                    </div>
-                </article>
-
-                <article class="project-card">
-                    <div class="project-content">
-                        <h3>Cdevi Technology Projects</h3>
-                        <p>Founded and developed multiple software solutions including web applications, mobile apps, and custom software for clients in Nepal. Focus on practical, scalable solutions for local businesses.</p>
-                        <div class="project-tags">
-                            <span class="tag">Entrepreneurship</span>
-                            <span class="tag">Software Solutions</span>
-                            <span class="tag">Business</span>
-                        </div>
-                    </div>
-                </article>
-
-                <article class="project-card">
-                    <div class="project-content">
-                        <h3>Machine Learning Applications</h3>
-                        <p>Developed various machine learning models for data analysis, prediction, and automation. Applied Python-based ML frameworks to solve real-world problems across different domains.</p>
-                        <div class="project-tags">
-                            <span class="tag">Machine Learning</span>
-                            <span class="tag">Python</span>
-                            <span class="tag">Data Science</span>
-                        </div>
-                    </div>
-                </article>
-            </div>
-        </div>
-    </section>
-
-    <!-- Awards & Certifications Section -->
-    <section class="section awards">
-        <div class="container">
-            <h2 class="section-title">Awards & Certifications</h2>
-            <div class="awards-grid">
-                <div class="award-item">
-                    <div class="award-icon">
-                        <i class="fas fa-trophy"></i>
-                    </div>
-                    <h3>Third Place - AI Hackathon</h3>
-                    <p>Olivera Lab, USA</p>
-                    <span class="year">2025</span>
-                </div>
-                <div class="award-item">
-                    <div class="award-icon">
-                        <i class="fas fa-award"></i>
-                    </div>
-                    <h3>Leo Secretary of the Year</h3>
-                    <p>Leo International</p>
-                    <span class="year">2019</span>
-                </div>
-                <div class="award-item">
-                    <div class="award-icon">
-                        <i class="fas fa-graduation-cap"></i>
-                    </div>
-                    <h3>College Scholarship</h3>
-                    <p>NCIT, Pokhara University</p>
-                    <span class="year">2017</span>
-                </div>
-                <div class="award-item">
-                    <div class="award-icon">
-                        <i class="fas fa-graduation-cap"></i>
-                    </div>
-                    <h3>School Scholarship</h3>
-                    <p>Step By Step Higher Secondary</p>
-                    <span class="year">2015</span>
-                </div>
-            </div>
-            <div class="certifications">
-                <h3>Professional Certifications</h3>
-                <ul class="cert-list">
-                    <li><i class="fas fa-certificate"></i> Machine Learning with Python</li>
-                    <li><i class="fas fa-certificate"></i> Data Science with Python (2023)</li>
-                    <li><i class="fas fa-certificate"></i> Laravel Certification - Broadway Infosys (2019)</li>
-                    <li><i class="fas fa-certificate"></i> The Fundamentals of Digital Marketing - Google Digital Garage (2020)</li>
-                    <li><i class="fas fa-certificate"></i> Workshop on Rapid Prototyping of Microfluidic Chips</li>
-                    <li><i class="fas fa-certificate"></i> Optics Lab Training</li>
-                    <li><i class="fas fa-certificate"></i> MBE Lab Training</li>
-                </ul>
-            </div>
-        </div>
-    </section>
-
-    <!-- Leadership Section -->
-    <section class="section leadership">
-        <div class="container">
-            <h2 class="section-title">Leadership & Service</h2>
-            <div class="leadership-grid">
-                <div class="leadership-card">
-                    <i class="fas fa-microscope"></i>
-                    <h3>Volunteer</h3>
-                    <p>Materials Research Society at JSNN</p>
-                    <span class="period">2025 - Present</span>
-                </div>
-                <div class="leadership-card">
-                    <i class="fas fa-building"></i>
-                    <h3>Founder</h3>
-                    <p>Cdevi Technology, Nepal</p>
-                    <span class="period">2020 - Present</span>
-                </div>
-                <div class="leadership-card">
-                    <i class="fas fa-users"></i>
-                    <h3>Chairperson of IT Department</h3>
-                    <p>Leo District Council 325 B1</p>
-                    <span class="period">2021</span>
-                </div>
-                <div class="leadership-card">
-                    <i class="fas fa-user-tie"></i>
-                    <h3>Club President</h3>
-                    <p>Leo Club of Kathmandu Atal Pingalasthan</p>
-                    <span class="period">2020 - 2021</span>
-                </div>
-                <div class="leadership-card">
-                    <i class="fas fa-file-alt"></i>
-                    <h3>Club Secretary</h3>
-                    <p>Leo Club of Kathmandu Atal Pingalasthan</p>
-                    <span class="period">2019 - 2020</span>
-                </div>
-                <div class="leadership-card">
-                    <i class="fas fa-user-graduate"></i>
-                    <h3>Vice President</h3>
-                    <p>Nepal Student Union, NCIT</p>
-                    <span class="period">2018 - 2019</span>
+                <div class="education-card">
+                    <div class="education-icon">📚</div>
+                    <h3 class="education-degree">High School in Science</h3>
+                    <p class="education-institution">Step By Step Higher Secondary School</p>
+                    <p class="education-location">Pokhara, Nepal</p>
+                    <p class="education-date">2015 - 2017</p>
                 </div>
             </div>
         </div>
     </section>
 
     <!-- Contact Section -->
-    <section class="section contact" id="contact">
+    <section class="section section-alt" id="contact">
         <div class="container">
             <h2 class="section-title">Get In Touch</h2>
             <div class="contact-content">
-                <p class="contact-intro">I'm always open to discussing research opportunities, collaborations, software development projects, or academic partnerships. Whether you're interested in nanotechnology, computational research, or software engineering, feel free to reach out!</p>
-                <div class="contact-grid">
-                    <div class="contact-card">
-                        <div class="contact-icon">
-                            <i class="fas fa-envelope"></i>
-                        </div>
-                        <h3>Email</h3>
-                        <a href="mailto:aspoudel@aggies.ncat.edu">aspoudel@aggies.ncat.edu</a>
-                    </div>
-                    <div class="contact-card">
-                        <div class="contact-icon">
-                            <i class="fas fa-phone"></i>
-                        </div>
-                        <h3>Phone</h3>
-                        <a href="tel:+12483153520">+1 248-315-3520</a>
-                    </div>
-                    <div class="contact-card">
-                        <div class="contact-icon">
-                            <i class="fab fa-linkedin"></i>
-                        </div>
-                        <h3>LinkedIn</h3>
-                        <a href="https://www.linkedin.com/in/arjunsharmapoudel/" target="_blank" rel="noopener noreferrer">Connect with me</a>
-                    </div>
-                    <div class="contact-card">
-                        <div class="contact-icon">
-                            <i class="fab fa-researchgate"></i>
-                        </div>
-                        <h3>ResearchGate</h3>
-                        <a href="https://www.researchgate.net/profile/Arjun-Poudel-5" target="_blank" rel="noopener noreferrer">View my research</a>
-                    </div>
-                </div>
-                <div class="languages">
-                    <h3>Languages</h3>
-                    <div class="language-tags">
-                        <span class="lang-tag"><i class="fas fa-globe"></i> English</span>
-                        <span class="lang-tag"><i class="fas fa-globe"></i> Nepali</span>
-                        <span class="lang-tag"><i class="fas fa-globe"></i> Hindi</span>
+                <div class="contact-info">
+                    <h3>Let's Connect</h3>
+                    <p>I'm always open to discussing new projects, research collaborations, or opportunities in nanotechnology and software development.</p>
+                    <div class="contact-links">
+                        <a href="mailto:aspoudel@aggies.ncat.edu" class="contact-link">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
+                                <polyline points="22,6 12,13 2,6"></polyline>
+                            </svg>
+                            aspoudel@aggies.ncat.edu
+                        </a>
+                        <a href="tel:+12483153520" class="contact-link">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path>
+                            </svg>
+                            +1 248-315-3520
+                        </a>
+                        <a href="https://www.linkedin.com/in/arjunsharmapoudel/" target="_blank" class="contact-link">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path>
+                                <rect x="2" y="9" width="4" height="12"></rect>
+                                <circle cx="4" cy="4" r="2"></circle>
+                            </svg>
+                            LinkedIn Profile
+                        </a>
+                        <a href="https://www.researchgate.net/profile/Arjun-Poudel-5" target="_blank" class="contact-link">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"></path>
+                            </svg>
+                            ResearchGate Profile
+                        </a>
                     </div>
                 </div>
+                <form class="contact-form" id="contactForm">
+                    <div class="form-group">
+                        <label for="name">Name</label>
+                        <input type="text" id="name" name="name" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Email</label>
+                        <input type="email" id="email" name="email" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="message">Message</label>
+                        <textarea id="message" name="message" rows="5" required></textarea>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Send Message</button>
+                </form>
             </div>
         </div>
     </section>
@@ -451,42 +324,22 @@
     <!-- Footer -->
     <footer class="footer">
         <div class="container">
-            <div class="footer-content">
-                <div class="footer-info">
-                    <h3>Arjun Sharma Poudel</h3>
-                    <p>Nanoengineering Graduate Student & Software Engineer</p>
-                    <p>North Carolina A&T State University</p>
-                </div>
-                <div class="footer-links">
-                    <h4>Quick Links</h4>
-                    <ul>
-                        <li><a href="#about">About</a></li>
-                        <li><a href="#experience">Experience</a></li>
-                        <li><a href="#research">Research</a></li>
-                        <li><a href="#contact">Contact</a></li>
-                    </ul>
-                </div>
-                <div class="footer-social">
-                    <h4>Connect</h4>
-                    <div class="social-links">
-                        <a href="https://www.linkedin.com/in/arjunsharmapoudel/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">
-                            <i class="fab fa-linkedin"></i>
-                        </a>
-                        <a href="https://www.researchgate.net/profile/Arjun-Poudel-5" target="_blank" rel="noopener noreferrer" aria-label="ResearchGate">
-                            <i class="fab fa-researchgate"></i>
-                        </a>
-                        <a href="mailto:aspoudel@aggies.ncat.edu" aria-label="Email">
-                            <i class="fas fa-envelope"></i>
-                        </a>
-                    </div>
-                </div>
-            </div>
-            <div class="footer-bottom">
-                <p>&copy; 2025 Arjun Sharma Poudel. All rights reserved.</p>
+            <p>&copy; 2026 Arjun Sharma Poudel. All rights reserved.</p>
+            <div class="footer-links">
+                <a href="https://www.linkedin.com/in/arjunsharmapoudel/" target="_blank" aria-label="LinkedIn">LinkedIn</a>
+                <a href="https://www.researchgate.net/profile/Arjun-Poudel-5" target="_blank" aria-label="ResearchGate">ResearchGate</a>
+                <a href="mailto:aspoudel@aggies.ncat.edu" aria-label="Email">Email</a>
             </div>
         </div>
     </footer>
 
-    <script src="js/main.js"></script>
+    <!-- Back to Top Button -->
+    <button class="back-to-top" id="backToTop" aria-label="Back to top">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <polyline points="18 15 12 9 6 15"></polyline>
+        </svg>
+    </button>
+
+    <script src="main.js"></script>
 </body>
 </html>

@@ -1,21 +1,39 @@
-/* ===================================
-   ARJUN SHARMA POUDEL - PORTFOLIO JS
-   Save this file as: js/main.js
-   =================================== */
 
-// Navigation functionality
-const nav = document.getElementById('nav');
+// Theme Toggle
+const themeToggle = document.getElementById('themeToggle');
+const html = document.documentElement;
+
+// Check for saved theme preference or default to system preference
+const getTheme = () => {
+    const savedTheme = localStorage.getItem('theme');
+    if (savedTheme) {
+        return savedTheme;
+    }
+    return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+};
+
+// Set initial theme
+html.setAttribute('data-theme', getTheme());
+
+// Theme toggle functionality
+themeToggle.addEventListener('click', () => {
+    const currentTheme = html.getAttribute('data-theme');
+    const newTheme = currentTheme === 'light' ? 'dark' : 'light';
+    html.setAttribute('data-theme', newTheme);
+    localStorage.setItem('theme', newTheme);
+});
+
+// Mobile Navigation Toggle
 const navToggle = document.getElementById('navToggle');
 const navMenu = document.getElementById('navMenu');
-const navLinks = document.querySelectorAll('.nav-link');
 
-// Toggle mobile menu
 navToggle.addEventListener('click', () => {
     navToggle.classList.toggle('active');
     navMenu.classList.toggle('active');
 });
 
-// Close mobile menu when clicking a link
+// Close mobile menu when clicking on a link
+const navLinks = document.querySelectorAll('.nav-link');
 navLinks.forEach(link => {
     link.addEventListener('click', () => {
         navToggle.classList.remove('active');
@@ -23,219 +41,94 @@ navLinks.forEach(link => {
     });
 });
 
-// Add shadow to nav on scroll
-let lastScroll = 0;
-window.addEventListener('scroll', () => {
-    const currentScroll = window.pageYOffset;
-    
-    if (currentScroll > 50) {
-        nav.classList.add('scrolled');
-    } else {
-        nav.classList.remove('scrolled');
-    }
-    
-    lastScroll = currentScroll;
-});
-
-// Smooth scroll for anchor links
+// Smooth Scrolling
 document.querySelectorAll('a[href^="#"]').forEach(anchor => {
     anchor.addEventListener('click', function (e) {
         e.preventDefault();
         const target = document.querySelector(this.getAttribute('href'));
-        
         if (target) {
-            const offsetTop = target.offsetTop - 70;
+            const headerOffset = 70;
+            const elementPosition = target.getBoundingClientRect().top;
+            const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
+
             window.scrollTo({
-                top: offsetTop,
+                top: offsetPosition,
                 behavior: 'smooth'
             });
         }
     });
 });
 
-// Intersection Observer for fade-in animations
+// Active Section Highlighting
+const sections = document.querySelectorAll('.section, .hero');
+const navbar = document.getElementById('navbar');
+
 const observerOptions = {
-    threshold: 0.1,
-    rootMargin: '0px 0px -50px 0px'
+    root: null,
+    rootMargin: '-100px 0px -80% 0px',
+    threshold: 0
 };
 
 const observer = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
         if (entry.isIntersecting) {
-            entry.target.style.opacity = '1';
-            entry.target.style.transform = 'translateY(0)';
+            const id = entry.target.getAttribute('id');
+            navLinks.forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('href') === `#${id}`) {
+                    link.classList.add('active');
+                }
+            });
         }
     });
 }, observerOptions);
 
-// Observe elements for animation
-const animateOnScroll = document.querySelectorAll(
-    '.project-card, .timeline-item, .contact-card, .skill-category, ' +
-    '.award-item, .leadership-card, .certifications'
-);
-
-animateOnScroll.forEach(el => {
-    el.style.opacity = '0';
-    el.style.transform = 'translateY(30px)';
-    el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
-    observer.observe(el);
+sections.forEach(section => {
+    observer.observe(section);
 });
 
-// Active navigation link based on scroll position
-const sections = document.querySelectorAll('section[id]');
-
-function highlightNavigation() {
-    const scrollY = window.pageYOffset;
-
-    sections.forEach(section => {
-        const sectionHeight = section.offsetHeight;
-        const sectionTop = section.offsetTop - 100;
-        const sectionId = section.getAttribute('id');
-        const navLink = document.querySelector(`.nav-link[href="#${sectionId}"]`);
-
-        if (scrollY > sectionTop && scrollY <= sectionTop + sectionHeight) {
-            navLink?.classList.add('active');
-        } else {
-            navLink?.classList.remove('active');
-        }
-    });
-}
-
-window.addEventListener('scroll', highlightNavigation);
-
-// Add CSS for active nav link dynamically
-const style = document.createElement('style');
-style.textContent = `
-    .nav-link.active {
-        color: var(--primary-color);
-    }
-    .nav-link.active::after {
-        width: 100%;
-    }
-`;
-document.head.appendChild(style);
-
-// Keyboard navigation improvements
-document.addEventListener('keydown', (e) => {
-    // ESC key closes mobile menu
-    if (e.key === 'Escape' && navMenu.classList.contains('active')) {
-        navToggle.classList.remove('active');
-        navMenu.classList.remove('active');
-    }
-});
-
-// Trap focus in mobile menu when open
-navMenu.addEventListener('keydown', (e) => {
-    if (!navMenu.classList.contains('active')) return;
-    
-    const focusableElements = navMenu.querySelectorAll('a, button');
-    const firstElement = focusableElements[0];
-    const lastElement = focusableElements[focusableElements.length - 1];
-    
-    if (e.key === 'Tab') {
-        if (e.shiftKey && document.activeElement === firstElement) {
-            e.preventDefault();
-            lastElement.focus();
-        } else if (!e.shiftKey && document.activeElement === lastElement) {
-            e.preventDefault();
-            firstElement.focus();
-        }
-    }
-});
-
-// Performance: Debounce scroll events
-function debounce(func, wait) {
-    let timeout;
-    return function executedFunction(...args) {
-        const later = () => {
-            clearTimeout(timeout);
-            func(...args);
-        };
-        clearTimeout(timeout);
-        timeout = setTimeout(later, wait);
-    };
-}
-
-const debouncedHighlight = debounce(highlightNavigation, 10);
-window.addEventListener('scroll', debouncedHighlight);
-
-// Add hover effect for skill tags
-document.addEventListener('DOMContentLoaded', () => {
-    const skillTags = document.querySelectorAll('.skill-tag');
-    skillTags.forEach(tag => {
-        tag.addEventListener('mouseenter', function() {
-            this.style.transform = 'translateY(-2px) scale(1.05)';
-        });
-        tag.addEventListener('mouseleave', function() {
-            this.style.transform = 'translateY(0) scale(1)';
-        });
-    });
-});
-
-// Animate timeline items on scroll
-const timelineObserver = new IntersectionObserver((entries) => {
-    entries.forEach((entry, index) => {
-        if (entry.isIntersecting) {
-            setTimeout(() => {
-                entry.target.style.opacity = '1';
-                entry.target.style.transform = 'translateX(0)';
-            }, index * 100);
-        }
-    });
-}, {
-    threshold: 0.2
-});
-
-document.querySelectorAll('.timeline-item').forEach(item => {
-    item.style.opacity = '0';
-    item.style.transform = 'translateX(-30px)';
-    item.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
-    timelineObserver.observe(item);
-});
-
-// Counter animation for awards
-function animateCounter(element, target, duration) {
-    let start = 0;
-    const increment = target / (duration / 16);
-    
-    const timer = setInterval(() => {
-        start += increment;
-        if (start >= target) {
-            element.textContent = target;
-            clearInterval(timer);
-        } else {
-            element.textContent = Math.floor(start);
-        }
-    }, 16);
-}
-
-// Add subtle parallax effect to hero section
+// Navbar Scroll Effect
+let lastScroll = 0;
 window.addEventListener('scroll', () => {
-    const scrolled = window.pageYOffset;
-    const hero = document.querySelector('.hero-content');
-    if (hero && scrolled < window.innerHeight) {
-        hero.style.transform = `translateY(${scrolled * 0.3}px)`;
-        hero.style.opacity = 1 - (scrolled / 600);
+    const currentScroll = window.pageYOffset;
+
+    if (currentScroll > 100) {
+        navbar.classList.add('scrolled');
+    } else {
+        navbar.classList.remove('scrolled');
+    }
+
+    lastScroll = currentScroll;
+});
+
+// Back to Top Button
+const backToTop = document.getElementById('backToTop');
+
+window.addEventListener('scroll', () => {
+    if (window.pageYOffset > 500) {
+        backToTop.classList.add('show');
+    } else {
+        backToTop.classList.remove('show');
     }
 });
 
-// Log page load for analytics (placeholder)
-console.log('Portfolio loaded successfully - Arjun Sharma Poudel');
-
-// Add loading animation
-window.addEventListener('load', () => {
-    document.body.classList.add('loaded');
-    console.log('All resources loaded');
+backToTop.addEventListener('click', () => {
+    window.scrollTo({
+        top: 0,
+        behavior: 'smooth'
+    });
 });
 
-// Smooth reveal for project cards
-const projectObserver = new IntersectionObserver((entries) => {
+// Reveal on Scroll Animation
+const revealElements = document.querySelectorAll('.project-card, .skill-category, .timeline-item, .education-card');
+
+const revealObserver = new IntersectionObserver((entries) => {
     entries.forEach((entry, index) => {
         if (entry.isIntersecting) {
             setTimeout(() => {
-                entry.target.style.opacity = '1';
-                entry.target.style.transform = 'translateY(0)';
-            }, index * 150);
+                entry.target.classList.add('fade-in-up');
+            }, index * 100);
+            revealObserver.unobserve(entry.target);
         }
     });
 }, {
@@ -243,33 +136,37 @@ const projectObserver = new IntersectionObserver((entries) => {
     rootMargin: '0px 0px -50px 0px'
 });
 
-document.querySelectorAll('.project-card').forEach(card => {
-    projectObserver.observe(card);
+revealElements.forEach(el => {
+    revealObserver.observe(el);
 });
 
-// Add click tracking for external links (optional - for analytics)
-document.querySelectorAll('a[target="_blank"]').forEach(link => {
-    link.addEventListener('click', function() {
-        console.log('External link clicked:', this.href);
-    });
+// Contact Form Handling
+const contactForm = document.getElementById('contactForm');
+
+contactForm.addEventListener('submit', (e) => {
+    e.preventDefault();
+    
+    const formData = {
+        name: document.getElementById('name').value,
+        email: document.getElementById('email').value,
+        message: document.getElementById('message').value
+    };
+
+    // Log form data (in production, this would send to a backend)
+    console.log('Form submitted:', formData);
+
+    // Show success message
+    alert('Thank you for your message! I will get back to you soon.');
+    
+    // Reset form
+    contactForm.reset();
 });
 
-// Enhance accessibility - announce page changes
-function announcePageSection(sectionName) {
-    const announcement = document.createElement('div');
-    announcement.setAttribute('role', 'status');
-    announcement.setAttribute('aria-live', 'polite');
-    announcement.style.position = 'absolute';
-    announcement.style.left = '-10000px';
-    announcement.textContent = `Navigated to ${sectionName} section`;
-    document.body.appendChild(announcement);
-    setTimeout(() => announcement.remove(), 1000);
-}
-
-navLinks.forEach(link => {
-    link.addEventListener('click', function() {
-        const sectionId = this.getAttribute('href').substring(1);
-        const sectionName = sectionId.charAt(0).toUpperCase() + sectionId.slice(1);
-        announcePageSection(sectionName);
+// Prevent form submission on Enter key in input fields (except textarea)
+document.querySelectorAll('.contact-form input').forEach(input => {
+    input.addEventListener('keypress', (e) => {
+        if (e.key === 'Enter') {
+            e.preventDefault();
+        }
     });
 });
