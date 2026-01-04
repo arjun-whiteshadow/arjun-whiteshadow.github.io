@@ -145,3 +145,30 @@ contactForm?.addEventListener("submit", (e) => {
   alert("Thank you for your message! I will get back to you soon.");
   contactForm.reset();
 });
+
+
+document.addEventListener("DOMContentLoaded", () => {
+  const form = document.getElementById("contactForm");
+  const status = document.getElementById("formStatus");
+  const iframe = document.getElementById("hidden_iframe");
+
+  if (!form || !status || !iframe) return;
+
+  let submitting = false;
+
+  form.addEventListener("submit", () => {
+    submitting = true;
+    status.textContent = "Sending...";
+  });
+
+  iframe.addEventListener("load", () => {
+    // iframe also "loads" once on page load — ignore that one
+    if (!submitting) return;
+
+    submitting = false;
+    status.textContent = "✅ Message sent! I’ll get back to you soon.";
+    form.reset();
+
+    setTimeout(() => (status.textContent = ""), 4000);
+  });
+});

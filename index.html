@@ -379,53 +379,41 @@
           <form
   class="contact-form"
   id="contactForm"
-  action="https://docs.google.com/forms/d/e/1FAIpQLSdOSwNOLxFdrvMRKM0Rg87KNnreEK-Fbaozg4GFyInZ4XprfQ/formResponse"
+  action="https://docs.google.com/forms/u/0/d/e/1FAIpQLSdOSwNOLxFdrvMRKM0Rg87KNnreEK-Fbaozg4GFyInZ4XprfQ/formResponse"
   method="POST"
   target="hidden_iframe"
-  onsubmit="return submitGoogleForm();"
 >
   <div class="form-group">
     <label for="name">Name</label>
-    <!-- IMPORTANT: name must be entry.xxxxx -->
     <input type="text" id="name" name="entry.1678550034" autocomplete="name" required />
   </div>
 
   <div class="form-group">
     <label for="email">Email</label>
-    <!-- IMPORTANT: name must be entry.xxxxx -->
     <input type="email" id="email" name="entry.1923127276" autocomplete="email" required />
   </div>
 
   <div class="form-group">
     <label for="message">Message</label>
-    <!-- IMPORTANT: name must be entry.xxxxx -->
     <textarea id="message" name="entry.1584743685" rows="5" required></textarea>
   </div>
 
+  <!-- optional but helps reliability -->
+  <input type="hidden" name="fvv" value="1" />
+  <input type="hidden" name="pageHistory" value="0" />
+  <input type="hidden" name="fbzx" value="2046136126893394246" />
+
   <button type="submit" class="btn btn-primary">Send Message</button>
 
-  <p class="form-hint" id="formStatus" aria-live="polite">
-    This form is connected to Google Forms.
-  </p>
+  <p class="form-hint" id="formStatus" aria-live="polite"></p>
 </form>
+
+<iframe name="hidden_iframe" id="hidden_iframe" style="display:none;"></iframe>
+
 
 <!-- Hidden iframe prevents redirect to Google page -->
 <iframe name="hidden_iframe" id="hidden_iframe" style="display:none;"></iframe>
 
-<script>
-  function submitGoogleForm() {
-    const status = document.getElementById("formStatus");
-    status.textContent = "Sending...";
-
-    // show success + reset after submit
-    setTimeout(() => {
-      status.textContent = "✅ Message sent! I’ll get back to you soon.";
-      document.getElementById("contactForm").reset();
-    }, 900);
-
-    return true; // allow form submission to Google
-  }
-</script>
 
         </div>
       </div>
