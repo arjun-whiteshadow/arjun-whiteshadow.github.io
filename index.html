@@ -376,81 +376,18 @@
             <p class="form-hint">This form is front-end only (no backend).</p>
           </form> -->
 
-          
-<form
-  class="contact-form"
-  id="contactForm"
-  action="https://docs.google.com/forms/d/e/1FAIpQLSdOSwNOLxFdrvMRKM0Rg87KNnreEK-Fbaozg4GFyInZ4XprfQ/formResponse"
-  method="POST"
-  target="hidden_iframe"
-  accept-charset="UTF-8"
+          <iframe
+  src="https://docs.google.com/forms/d/e/1FAIpQLSdOSwNOLxFdrvMRKM0Rg87KNnreEK-Fbaozg4GFyInZ4XprfQ/viewform?embedded=true"
+  width="100%"
+  height="900"
+  frameborder="0"
+  marginheight="0"
+  marginwidth="0"
 >
-  <div class="form-group">
-    <label for="name">Name</label>
-    <input id="name" type="text" name="entry.1678550034" required />
-  </div>
+  Loading…
+</iframe>
 
-  <div class="form-group">
-    <label for="email">Email</label>
-    <input id="email" type="email" name="entry.1923127276" required />
-  </div>
 
-  <div class="form-group">
-    <label for="message">Message</label>
-    <textarea id="message" name="entry.1584743685" rows="5" required></textarea>
-  </div>
-
-  <!-- Google hidden fields (from your form source) -->
-  <input type="hidden" name="fvv" value="1" />
-  <input type="hidden" name="partialResponse" value='[null,null,"2046136126893394246"]' />
-  <input type="hidden" name="pageHistory" value="0" />
-  <input type="hidden" name="fbzx" value="2046136126893394246" />
-  <input type="hidden" name="submissionTimestamp" value="-1" />
-
-  <button type="submit" class="btn btn-primary" id="submitBtn">Send Message</button>
-  <p class="form-hint" id="formStatus" aria-live="polite"></p>
-</form>
-
-<iframe name="hidden_iframe" id="hidden_iframe" style="display:none;"></iframe>
-
-<script>
-  (function () {
-    const form = document.getElementById("contactForm");
-    const iframe = document.getElementById("hidden_iframe");
-    const status = document.getElementById("formStatus");
-    const btn = document.getElementById("submitBtn");
-
-    let submitting = false;
-    let fallbackTimer = null;
-
-    form.addEventListener("submit", () => {
-      submitting = true;
-      status.textContent = "Sending...";
-      btn.disabled = true;
-
-      // fallback so it never gets stuck
-      fallbackTimer = setTimeout(() => finishSuccess(), 2500);
-    });
-
-    iframe.addEventListener("load", () => {
-      if (!submitting) return; // ignore initial load
-      finishSuccess();
-    });
-
-    function finishSuccess() {
-      if (!submitting) return;
-      submitting = false;
-
-      if (fallbackTimer) clearTimeout(fallbackTimer);
-
-      status.textContent = "✅ Message sent!";
-      form.reset();
-      btn.disabled = false;
-
-      setTimeout(() => (status.textContent = ""), 4000);
-    }
-  })();
-</script>
 
 
         </div>
