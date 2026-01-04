@@ -344,10 +344,8 @@
               </a>
             </div>
           </div>
-                    <section class="section section-alt" id="contact">
-                    <div class="container">
-                        <h2 class="section-title">Get In Touch</h2>
-
+                    <!-- <section class="section section-alt" id="contact">
+                    <div class="container">                       
                         <div style="border:1px solid #e5e7eb; border-radius:12px; overflow:hidden;">
                         <iframe
                             src="https://docs.google.com/forms/d/e/1FAIpQLSdOSwNOLxFdrvMRKM0Rg87KNnreEK-Fbaozg4GFyInZ4XprfQ/viewform?embedded=true"
@@ -359,7 +357,7 @@
                         >Loading…</iframe>
                         </div>
                     </div>
-                    </section>
+                    </section> -->
 
           <!-- <form class="contact-form" id="contactForm">
             <div class="form-group">
@@ -377,6 +375,58 @@
             <button type="submit" class="btn btn-primary">Send Message</button>
             <p class="form-hint">This form is front-end only (no backend).</p>
           </form> -->
+
+          <form
+  class="contact-form"
+  id="contactForm"
+  action="https://docs.google.com/forms/d/e/1FAIpQLSdOSwNOLxFdrvMRKM0Rg87KNnreEK-Fbaozg4GFyInZ4XprfQ/formResponse"
+  method="POST"
+  target="hidden_iframe"
+  onsubmit="return submitGoogleForm();"
+>
+  <div class="form-group">
+    <label for="name">Name</label>
+    <!-- IMPORTANT: name must be entry.xxxxx -->
+    <input type="text" id="name" name="entry.1678550034" autocomplete="name" required />
+  </div>
+
+  <div class="form-group">
+    <label for="email">Email</label>
+    <!-- IMPORTANT: name must be entry.xxxxx -->
+    <input type="email" id="email" name="entry.1923127276" autocomplete="email" required />
+  </div>
+
+  <div class="form-group">
+    <label for="message">Message</label>
+    <!-- IMPORTANT: name must be entry.xxxxx -->
+    <textarea id="message" name="entry.1584743685" rows="5" required></textarea>
+  </div>
+
+  <button type="submit" class="btn btn-primary">Send Message</button>
+
+  <p class="form-hint" id="formStatus" aria-live="polite">
+    This form is connected to Google Forms.
+  </p>
+</form>
+
+<!-- Hidden iframe prevents redirect to Google page -->
+<iframe name="hidden_iframe" id="hidden_iframe" style="display:none;"></iframe>
+
+<script>
+  function submitGoogleForm() {
+    const status = document.getElementById("formStatus");
+    status.textContent = "Sending...";
+
+    // show success + reset after submit
+    setTimeout(() => {
+      status.textContent = "✅ Message sent! I’ll get back to you soon.";
+      document.getElementById("contactForm").reset();
+    }, 900);
+
+    return true; // allow form submission to Google
+  }
+</script>
+
         </div>
       </div>
     </section>
