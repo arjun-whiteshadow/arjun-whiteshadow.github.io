@@ -1,172 +1,147 @@
+// js/main.js
 
-// Theme Toggle
-const themeToggle = document.getElementById('themeToggle');
+// Helpers
+const $ = (sel) => document.querySelector(sel);
+const $$ = (sel) => document.querySelectorAll(sel);
+
 const html = document.documentElement;
 
-// Check for saved theme preference or default to system preference
-const getTheme = () => {
-    const savedTheme = localStorage.getItem('theme');
-    if (savedTheme) {
-        return savedTheme;
-    }
-    return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
-};
+// ===== Theme Toggle =====
+const themeToggle = $("#themeToggle");
 
-// Set initial theme
-html.setAttribute('data-theme', getTheme());
+function getPreferredTheme() {
+  const saved = localStorage.getItem("theme");
+  if (saved === "light" || saved === "dark") return saved;
+  return window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
+}
 
-// Theme toggle functionality
-themeToggle.addEventListener('click', () => {
-    const currentTheme = html.getAttribute('data-theme');
-    const newTheme = currentTheme === 'light' ? 'dark' : 'light';
-    html.setAttribute('data-theme', newTheme);
-    localStorage.setItem('theme', newTheme);
+function setTheme(theme) {
+  html.setAttribute("data-theme", theme);
+  localStorage.setItem("theme", theme);
+}
+
+// Set initial theme on load
+setTheme(getPreferredTheme());
+
+themeToggle?.addEventListener("click", () => {
+  const current = html.getAttribute("data-theme") || "light";
+  setTheme(current === "light" ? "dark" : "light");
 });
 
-// Mobile Navigation Toggle
-const navToggle = document.getElementById('navToggle');
-const navMenu = document.getElementById('navMenu');
+// ===== Mobile Navigation Toggle =====
+const navToggle = $("#navToggle");
+const navMenu = $("#navMenu");
 
-navToggle.addEventListener('click', () => {
-    navToggle.classList.toggle('active');
-    navMenu.classList.toggle('active');
+function closeMenu() {
+  navToggle?.classList.remove("active");
+  navMenu?.classList.remove("active");
+  navToggle?.setAttribute("aria-expanded", "false");
+}
+
+navToggle?.addEventListener("click", () => {
+  navToggle.classList.toggle("active");
+  navMenu.classList.toggle("active");
+  navToggle.setAttribute("aria-expanded", navMenu.classList.contains("active") ? "true" : "false");
 });
 
-// Close mobile menu when clicking on a link
-const navLinks = document.querySelectorAll('.nav-link');
-navLinks.forEach(link => {
-    link.addEventListener('click', () => {
-        navToggle.classList.remove('active');
-        navMenu.classList.remove('active');
-    });
+// Close mobile menu when clicking a nav link
+$$(".nav-link").forEach((link) => {
+  link.addEventListener("click", closeMenu);
 });
 
-// Smooth Scrolling
-document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-    anchor.addEventListener('click', function (e) {
-        e.preventDefault();
-        const target = document.querySelector(this.getAttribute('href'));
-        if (target) {
-            const headerOffset = 70;
-            const elementPosition = target.getBoundingClientRect().top;
-            const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
-
-            window.scrollTo({
-                top: offsetPosition,
-                behavior: 'smooth'
-            });
-        }
-    });
+// Close on Escape key
+document.addEventListener("keydown", (e) => {
+  if (e.key === "Escape") closeMenu();
 });
 
-// Active Section Highlighting
-const sections = document.querySelectorAll('.section, .hero');
-const navbar = document.getElementById('navbar');
-
-const observerOptions = {
-    root: null,
-    rootMargin: '-100px 0px -80% 0px',
-    threshold: 0
-};
-
-const observer = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-        if (entry.isIntersecting) {
-            const id = entry.target.getAttribute('id');
-            navLinks.forEach(link => {
-                link.classList.remove('active');
-                if (link.getAttribute('href') === `#${id}`) {
-                    link.classList.add('active');
-                }
-            });
-        }
-    });
-}, observerOptions);
-
-sections.forEach(section => {
-    observer.observe(section);
+// ===== Navbar shadow on scroll =====
+const navbar = $("#navbar");
+window.addEventListener("scroll", () => {
+  if (!navbar) return;
+  navbar.classList.toggle("scrolled", window.scrollY > 20);
 });
 
-// Navbar Scroll Effect
-let lastScroll = 0;
-window.addEventListener('scroll', () => {
-    const currentScroll = window.pageYOffset;
+// ===== Smooth scrolling (with header offset) =====
+$$('a[href^="#"]').forEach((a) => {
+  a.addEventListener("click", (e) => {
+    const href = a.getAttribute("href");
+    const target = href ? $(href) : null;
+    if (!target) return;
 
-    if (currentScroll > 100) {
-        navbar.classList.add('scrolled');
-    } else {
-        navbar.classList.remove('scrolled');
-    }
-
-    lastScroll = currentScroll;
-});
-
-// Back to Top Button
-const backToTop = document.getElementById('backToTop');
-
-window.addEventListener('scroll', () => {
-    if (window.pageYOffset > 500) {
-        backToTop.classList.add('show');
-    } else {
-        backToTop.classList.remove('show');
-    }
-});
-
-backToTop.addEventListener('click', () => {
-    window.scrollTo({
-        top: 0,
-        behavior: 'smooth'
-    });
-});
-
-// Reveal on Scroll Animation
-const revealElements = document.querySelectorAll('.project-card, .skill-category, .timeline-item, .education-card');
-
-const revealObserver = new IntersectionObserver((entries) => {
-    entries.forEach((entry, index) => {
-        if (entry.isIntersecting) {
-            setTimeout(() => {
-                entry.target.classList.add('fade-in-up');
-            }, index * 100);
-            revealObserver.unobserve(entry.target);
-        }
-    });
-}, {
-    threshold: 0.1,
-    rootMargin: '0px 0px -50px 0px'
-});
-
-revealElements.forEach(el => {
-    revealObserver.observe(el);
-});
-
-// Contact Form Handling
-const contactForm = document.getElementById('contactForm');
-
-contactForm.addEventListener('submit', (e) => {
     e.preventDefault();
-    
-    const formData = {
-        name: document.getElementById('name').value,
-        email: document.getElementById('email').value,
-        message: document.getElementById('message').value
-    };
 
-    // Log form data (in production, this would send to a backend)
-    console.log('Form submitted:', formData);
+    const headerOffset = 70;
+    const top = target.getBoundingClientRect().top + window.scrollY - headerOffset;
 
-    // Show success message
-    alert('Thank you for your message! I will get back to you soon.');
-    
-    // Reset form
-    contactForm.reset();
+    window.scrollTo({ top, behavior: "smooth" });
+  });
 });
 
-// Prevent form submission on Enter key in input fields (except textarea)
-document.querySelectorAll('.contact-form input').forEach(input => {
-    input.addEventListener('keypress', (e) => {
-        if (e.key === 'Enter') {
-            e.preventDefault();
-        }
+// ===== Active section highlighting =====
+const navLinks = $$(".nav-link");
+const sections = $$(".hero, .section");
+
+const sectionObserver = new IntersectionObserver(
+  (entries) => {
+    entries.forEach((entry) => {
+      if (!entry.isIntersecting) return;
+
+      const id = entry.target.getAttribute("id");
+      navLinks.forEach((link) => {
+        link.classList.toggle("active", link.getAttribute("href") === `#${id}`);
+      });
     });
+  },
+  { root: null, rootMargin: "-20% 0px -70% 0px", threshold: 0 }
+);
+
+sections.forEach((sec) => sectionObserver.observe(sec));
+
+// ===== Back to top button =====
+const backToTop = $("#backToTop");
+window.addEventListener("scroll", () => {
+  if (!backToTop) return;
+  backToTop.classList.toggle("show", window.scrollY > 500);
+});
+
+backToTop?.addEventListener("click", () => {
+  window.scrollTo({ top: 0, behavior: "smooth" });
+});
+
+// ===== Reveal on scroll animation =====
+const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+const revealItems = $$(".project-card, .skill-category, .timeline-item, .education-card, .about-card");
+
+if (!prefersReducedMotion) {
+  const revealObserver = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        if (!entry.isIntersecting) return;
+        entry.target.classList.add("fade-in-up");
+        revealObserver.unobserve(entry.target);
+      });
+    },
+    { threshold: 0.12, rootMargin: "0px 0px -10% 0px" }
+  );
+
+  revealItems.forEach((el) => revealObserver.observe(el));
+}
+
+// ===== Footer year =====
+const yearEl = $("#year");
+if (yearEl) yearEl.textContent = String(new Date().getFullYear());
+
+// ===== Contact form (front-end only) =====
+const contactForm = $("#contactForm");
+contactForm?.addEventListener("submit", (e) => {
+  e.preventDefault();
+
+  const name = $("#name")?.value?.trim();
+  const email = $("#email")?.value?.trim();
+  const message = $("#message")?.value?.trim();
+
+  console.log("Contact form submitted:", { name, email, message });
+
+  alert("Thank you for your message! I will get back to you soon.");
+  contactForm.reset();
 });
