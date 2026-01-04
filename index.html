@@ -380,18 +380,19 @@
 <form
   class="contact-form"
   id="contactForm"
-  action="https://docs.google.com/forms/u/0/d/e/1FAIpQLSdOSwNOLxFdrvMRKM0Rg87KNnreEK-Fbaozg4GFyInZ4XprfQ/formResponse"
+  action="https://docs.google.com/forms/d/e/1FAIpQLSdOSwNOLxFdrvMRKM0Rg87KNnreEK-Fbaozg4GFyInZ4XprfQ/formResponse"
   method="POST"
-  autocomplete="on"
+  target="hidden_iframe"
+  accept-charset="UTF-8"
 >
   <div class="form-group">
     <label for="name">Name</label>
-    <input type="text" id="name" name="entry.1678550034" autocomplete="name" required />
+    <input id="name" type="text" name="entry.1678550034" required />
   </div>
 
   <div class="form-group">
     <label for="email">Email</label>
-    <input type="email" id="email" name="entry.1923127276" autocomplete="email" required />
+    <input id="email" type="email" name="entry.1923127276" required />
   </div>
 
   <div class="form-group">
@@ -399,45 +400,55 @@
     <textarea id="message" name="entry.1584743685" rows="5" required></textarea>
   </div>
 
+  <!-- Google hidden fields (from your form source) -->
+  <input type="hidden" name="fvv" value="1" />
+  <input type="hidden" name="partialResponse" value='[null,null,"2046136126893394246"]' />
+  <input type="hidden" name="pageHistory" value="0" />
+  <input type="hidden" name="fbzx" value="2046136126893394246" />
+  <input type="hidden" name="submissionTimestamp" value="-1" />
+
   <button type="submit" class="btn btn-primary" id="submitBtn">Send Message</button>
   <p class="form-hint" id="formStatus" aria-live="polite"></p>
 </form>
 
+<iframe name="hidden_iframe" id="hidden_iframe" style="display:none;"></iframe>
+
 <script>
   (function () {
     const form = document.getElementById("contactForm");
+    const iframe = document.getElementById("hidden_iframe");
     const status = document.getElementById("formStatus");
     const btn = document.getElementById("submitBtn");
 
-    form.addEventListener("submit", async (e) => {
-      e.preventDefault();
+    let submitting = false;
+    let fallbackTimer = null;
 
-      btn.disabled = true;
+    form.addEventListener("submit", () => {
+      submitting = true;
       status.textContent = "Sending...";
+      btn.disabled = true;
 
-      try {
-        const fd = new FormData(form);
-        const params = new URLSearchParams();
-        for (const [k, v] of fd.entries()) params.append(k, v);
-
-        await fetch(form.action, {
-          method: "POST",
-          mode: "no-cors",
-          headers: {
-            "Content-Type": "application/x-www-form-urlencoded;charset=UTF-8",
-          },
-          body: params.toString(),
-        });
-
-        status.textContent = "✅ Message sent!";
-        form.reset();
-      } catch (err) {
-        status.textContent = "❌ Failed to send. Try again.";
-      } finally {
-        btn.disabled = false;
-        setTimeout(() => (status.textContent = ""), 4000);
-      }
+      // fallback so it never gets stuck
+      fallbackTimer = setTimeout(() => finishSuccess(), 2500);
     });
+
+    iframe.addEventListener("load", () => {
+      if (!submitting) return; // ignore initial load
+      finishSuccess();
+    });
+
+    function finishSuccess() {
+      if (!submitting) return;
+      submitting = false;
+
+      if (fallbackTimer) clearTimeout(fallbackTimer);
+
+      status.textContent = "✅ Message sent!";
+      form.reset();
+      btn.disabled = false;
+
+      setTimeout(() => (status.textContent = ""), 4000);
+    }
   })();
 </script>
 
